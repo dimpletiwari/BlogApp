@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Blog App</title>
+</head>
+<body>
+  <h1>Welcome to the Simple Blog App</h1>
+  <p>This is the main page of the application.</p>
+
+ <%= form_with(model: @session, url: new_session_path, method: :post) do |form| %>
+  <%= form.submit 'Log in' %>
+<% end %>
+
+
+
+</body>
+</html>
