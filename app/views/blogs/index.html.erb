@@ -1,0 +1,35 @@
+<!-- app/views/blogs/index.html.erb -->
+<%= link_to 'Delete', blog_path(blog), method: :delete, remote: true, data: { confirm: 'Are you sure?' } %>
+
+<%= text_field_tag :title_filter, params[:title_filter], placeholder: 'Title' %>
+<%= text_field_tag :date_filter, params[:date_filter], id: 'date-picker', placeholder: 'Publication Date' %>
+<%= button_tag 'Filter', id: 'filter-btn' %>
+
+<table>
+  <!-- Your blog entries display code here -->
+</table>
+
+<script>
+  document.addEventListener('turbolinks:load', function () {
+    flatpickr('#date-picker', {
+      dateFormat: 'Y-m-d',
+      altInput: true,
+      altFormat: 'F j, Y',
+    });
+
+    $('#filter-btn').click(function () {
+      var titleFilter = $('#title-filter').val();
+      var dateFilter = $('#date-picker').val();
+      $.ajax({
+        url: '<%= blogs_path %>',
+        type: 'GET',
+        data: { title_filter: titleFilter, date_filter: dateFilter },
+        success: function (data) {
+          $('#blogs-container').html(data);
+        },
+      });
+    });
+  });
+</script>
+
+
